@@ -11,3 +11,5 @@ When you execute, normally will use port 8080
 To save data send information via rest to address http://localhost:8080/rest/currencyfair/create
 
 To get all data via rest in address http://localhost:8080/rest/currencyfairs
+
+To test use html message_processor.html in any web server and with the server change a line 46
