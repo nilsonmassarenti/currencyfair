@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+		<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+  			<div class="container">
+  				<!-- Brand and toggle get grouped for better mobile display -->
+    			<div class="navbar-header">
+      				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        				<span class="sr-only">Toggle navigation</span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+      				</button>
+      				<a class="navbar-brand" href="#">APP</a>
+    			</div>
+    			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      				<ul class="nav navbar-nav">
+      					<li class="active"><a href="message_processor.html">Message Processor <span class="sr-only">(current)</span></a></li>
+      				</ul>
+      			</div>
+  			</div>
+		</nav>
+		<div class="container">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+    				<h3 class="panel-title">Market Trade</h3>
+  				</div>
+  				<div class="panel-body">
+    				<script>
+    					$(document).ready(function() {
+    						//put below whats server will use
+    						$.getJSON("http://localhost:8080/rest/currencyfairs",function(result){
+    							var trades = [];
+    							var count = -1;
+     							$.each(result, function(i, field){
+     								var trade = [
+     												field.userId, 
+     												field.currencyFrom, 
+     												field.currencyTo, 
+     												field.amountSell,
+     												field.amountBuy,
+     												field.rate,
+     												field.timePlaced,
+     												field.originatingCountry
+     											];
+									trades[++count] = trade;
+
+								});
+								$('#trade').DataTable({
+    								"data": trades
+    							});
+     						});
+						});
+    				</script>
+    				<table id="trade" class="display" cellspacing="0" width="100%">
+    					<thead>
+            				<tr>
+                				<th>User ID</th>
+                				<th>Currency From</th>
+                				<th>Currency To</th>
+                				<th>Amount Sell</th>
+                				<th>Amount Buy</th>
+                				<th>Rate</th>
+            					<th>Time Placed</th>
+            					<th>Originating Country</th>
+            				</tr>
+        				</thead> 
+    				</table>
+  				</div>
+			</div>
+		</div>
+	</body>
+</html>
